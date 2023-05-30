@@ -42,3 +42,14 @@ def calculate_probability(num_tosses,num_experiment):
         print(f"Number of heads in {num_tosses} tosses: {num_heads} | Probability : {num_heads/num_tosses}")
     probability = total_heads / (num_experiment*num_tosses)
     return probability
+
+def collect_data(number_toss,number_experiment,eps = 0.01, p = 0.5):
+    total_excess  = 0
+    for _ in range(number_experiment):
+        num_heads,_ = simulate_coin_tosses(number_toss)
+        if(num_heads/number_toss > p+eps or num_heads/number_toss < p-eps): # has a 25% of happening
+            total_excess += 1
+    return total_excess
+
+def calculate_prob_supremum(number_toss,esp = 0.01, p = 0.5):
+    return (p * (1-p) / (number_toss * esp**2))
